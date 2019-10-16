@@ -2,8 +2,9 @@ package weblib
 
 import (
 	"encoding/json"
-	"github.com/gorilla/schema"
 	"net/http"
+
+	"github.com/gorilla/schema"
 )
 
 // BindForms binds a go structure to a html form
@@ -20,10 +21,7 @@ func BindForm(req *http.Request, model interface{}) {
 	}
 }
 
-func BindJson(req *http.Request, model interface{}) {
+func BindJson(req *http.Request, model interface{}) error {
 	decoder := json.NewDecoder(req.Body)
-	err := decoder.Decode(&model)
-	if err != nil {
-		panic(err)
-	}
+	return decoder.Decode(&model)
 }
